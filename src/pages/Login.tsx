@@ -31,7 +31,10 @@ const Login = () => {
         commercial: '/commercial',
         agencydirector: '/agencydirector',
       };
-      navigate(roleRoutes[role] || '/');
+      const targetRoute = roleRoutes[role] || '/';
+      if (window.location.pathname !== targetRoute) {
+        navigate(targetRoute, { replace: true });
+      }
     }
   }, [user, navigate]);
 
