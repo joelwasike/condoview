@@ -1,4 +1,9 @@
-import { LayoutDashboard, Building2, Users, DollarSign, MessageCircle, LogOut, FileText, Settings, TrendingUp, Wrench, Briefcase, UserCog } from "lucide-react";
+import { 
+  LayoutDashboard, Building2, Users, DollarSign, MessageCircle, LogOut, FileText, Settings, 
+  TrendingUp, Wrench, Briefcase, UserCog, Home, AlertTriangle, Calendar, Package, 
+  BarChart3, Mail, Send, Bell, CreditCard, CheckCircle, Megaphone, ClipboardList,
+  Receipt, Wallet, Search, Filter
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -33,69 +38,112 @@ const Sidebar = () => {
 
   const getRoleNavItems = () => {
     const baseItems = [
-      { icon: <LayoutDashboard className="w-5 h-5" />, label: "Dashboard", to: `/${role}` },
+      { icon: <LayoutDashboard className="w-5 h-5" />, label: "Overview", to: `/${role}?tab=overview` },
     ];
 
     switch (role) {
       case 'superadmin':
         return [
           ...baseItems,
-          { icon: <Building2 className="w-5 h-5" />, label: "Companies", to: `/${role}/companies` },
-          { icon: <Users className="w-5 h-5" />, label: "Users", to: `/${role}/users` },
-          { icon: <TrendingUp className="w-5 h-5" />, label: "Financial", to: `/${role}/financial` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Transactions", to: `/${role}?tab=transactions` },
+          { icon: <Users className="w-5 h-5" />, label: "Clients", to: `/${role}?tab=clients` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=ads` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'tenant':
         return [
           ...baseItems,
-          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}/payments` },
-          { icon: <Wrench className="w-5 h-5" />, label: "Maintenance", to: `/${role}/maintenance` },
-          { icon: <FileText className="w-5 h-5" />, label: "Lease", to: `/${role}/lease` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}?tab=payments` },
+          { icon: <Wrench className="w-5 h-5" />, label: "Maintenance", to: `/${role}?tab=maintenance` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'landlord':
         return [
           ...baseItems,
-          { icon: <Building2 className="w-5 h-5" />, label: "Properties", to: `/${role}/properties` },
-          { icon: <Users className="w-5 h-5" />, label: "Tenants", to: `/${role}/tenants` },
-          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}/payments` },
+          { icon: <Building2 className="w-5 h-5" />, label: "Properties", to: `/${role}?tab=properties` },
+          { icon: <Users className="w-5 h-5" />, label: "Tenants", to: `/${role}?tab=tenants` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}?tab=payments` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Rents", to: `/${role}?tab=rents` },
+          { icon: <FileText className="w-5 h-5" />, label: "Expenses", to: `/${role}?tab=expenses` },
+          { icon: <Wrench className="w-5 h-5" />, label: "Works", to: `/${role}?tab=works` },
+          { icon: <FileText className="w-5 h-5" />, label: "Documents", to: `/${role}?tab=documents` },
+          { icon: <Package className="w-5 h-5" />, label: "Inventory", to: `/${role}?tab=inventory` },
+          { icon: <BarChart3 className="w-5 h-5" />, label: "Tracking", to: `/${role}?tab=tracking` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'salesmanager':
         return [
           ...baseItems,
-          { icon: <Building2 className="w-5 h-5" />, label: "Properties", to: `/${role}/properties` },
-          { icon: <Users className="w-5 h-5" />, label: "Clients", to: `/${role}/clients` },
-          { icon: <FileText className="w-5 h-5" />, label: "Alerts", to: `/${role}/alerts` },
+          { icon: <Building2 className="w-5 h-5" />, label: "Occupancy", to: `/${role}?tab=occupancy` },
+          { icon: <Users className="w-5 h-5" />, label: "Clients", to: `/${role}?tab=clients` },
+          { icon: <AlertTriangle className="w-5 h-5" />, label: "Alerts", to: `/${role}?tab=alerts` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'admin':
         return [
           ...baseItems,
-          { icon: <FileText className="w-5 h-5" />, label: "Documents", to: `/${role}/documents` },
-          { icon: <Settings className="w-5 h-5" />, label: "Reminders", to: `/${role}/reminders` },
+          { icon: <Mail className="w-5 h-5" />, label: "Inbox", to: `/${role}?tab=inbox` },
+          { icon: <FileText className="w-5 h-5" />, label: "Documents", to: `/${role}?tab=documents` },
+          { icon: <Send className="w-5 h-5" />, label: "Utilities", to: `/${role}?tab=utilities` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Debt", to: `/${role}?tab=debt` },
+          { icon: <Bell className="w-5 h-5" />, label: "Reminders", to: `/${role}?tab=reminders` },
+          { icon: <FileText className="w-5 h-5" />, label: "Leases", to: `/${role}?tab=leases` },
+          { icon: <TrendingUp className="w-5 h-5" />, label: "Automation", to: `/${role}?tab=automation` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'accounting':
         return [
           ...baseItems,
-          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}/payments` },
-          { icon: <TrendingUp className="w-5 h-5" />, label: "Expenses", to: `/${role}/expenses` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Collections", to: `/${role}?tab=collections` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Payments", to: `/${role}?tab=payments` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Tenant Payments", to: `/${role}?tab=tenant-payments` },
+          { icon: <BarChart3 className="w-5 h-5" />, label: "Reports", to: `/${role}?tab=reports` },
+          { icon: <FileText className="w-5 h-5" />, label: "Expenses", to: `/${role}?tab=expenses` },
+          { icon: <Users className="w-5 h-5" />, label: "Tenants", to: `/${role}?tab=tenants` },
+          { icon: <Wallet className="w-5 h-5" />, label: "Deposits", to: `/${role}?tab=deposits` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'technician':
         return [
           ...baseItems,
-          { icon: <Wrench className="w-5 h-5" />, label: "Maintenance", to: `/${role}/maintenance` },
-          { icon: <FileText className="w-5 h-5" />, label: "Quotes", to: `/${role}/quotes` },
-          { icon: <Building2 className="w-5 h-5" />, label: "Inventory", to: `/${role}/inventory` },
+          { icon: <CheckCircle className="w-5 h-5" />, label: "Inspections", to: `/${role}?tab=inspections` },
+          { icon: <Calendar className="w-5 h-5" />, label: "Tasks", to: `/${role}?tab=tasks` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'commercial':
         return [
           ...baseItems,
-          { icon: <Building2 className="w-5 h-5" />, label: "Listings", to: `/${role}/listings` },
-          { icon: <Briefcase className="w-5 h-5" />, label: "Visits", to: `/${role}/visits` },
+          { icon: <Building2 className="w-5 h-5" />, label: "Listings", to: `/${role}?tab=listings` },
+          { icon: <Calendar className="w-5 h-5" />, label: "Visits", to: `/${role}?tab=visits` },
+          { icon: <Users className="w-5 h-5" />, label: "Requests", to: `/${role}?tab=requests` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=chat` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       case 'agencydirector':
         return [
           ...baseItems,
-          { icon: <Users className="w-5 h-5" />, label: "Users", to: `/${role}/users` },
-          { icon: <Building2 className="w-5 h-5" />, label: "Properties", to: `/${role}/properties` },
-          { icon: <TrendingUp className="w-5 h-5" />, label: "Financial", to: `/${role}/financial` },
+          { icon: <Users className="w-5 h-5" />, label: "Management", to: `/${role}?tab=management` },
+          { icon: <Building2 className="w-5 h-5" />, label: "Properties", to: `/${role}?tab=properties` },
+          { icon: <DollarSign className="w-5 h-5" />, label: "Accounting", to: `/${role}?tab=accounting` },
+          { icon: <TrendingUp className="w-5 h-5" />, label: "Analytics", to: `/${role}?tab=analytics` },
+          { icon: <Megaphone className="w-5 h-5" />, label: "Ads", to: `/${role}?tab=advertisements` },
+          { icon: <MessageCircle className="w-5 h-5" />, label: "Messages", to: `/${role}?tab=messages` },
+          { icon: <CreditCard className="w-5 h-5" />, label: "Subscription", to: `/${role}?tab=subscription` },
+          { icon: <Settings className="w-5 h-5" />, label: "Settings", to: `/${role}?tab=settings` },
         ];
       default:
         return baseItems;

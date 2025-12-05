@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,16 +10,28 @@ import PublicRoute from "./components/PublicRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import TenantDashboard from "./pages/TenantDashboard";
-import LandlordDashboard from "./pages/LandlordDashboard";
-import SalesManagerDashboard from "./pages/SalesManagerDashboard";
-import SuperAdminDashboard from "./pages/SuperAdminDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
-import AccountingDashboard from "./pages/AccountingDashboard";
-import TechnicianDashboard from "./pages/TechnicianDashboard";
-import CommercialDashboard from "./pages/CommercialDashboard";
-import AgencyDirectorDashboard from "./pages/AgencyDirectorDashboard";
 import NotFound from "./pages/NotFound";
+
+// Lazy load dashboard components for code-splitting
+const TenantDashboard = lazy(() => import("./pages/TenantDashboard"));
+const LandlordDashboard = lazy(() => import("./pages/LandlordDashboard"));
+const SalesManagerDashboard = lazy(() => import("./pages/SalesManagerDashboard"));
+const SuperAdminDashboard = lazy(() => import("./pages/SuperAdminDashboard"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AccountingDashboard = lazy(() => import("./pages/AccountingDashboard"));
+const TechnicianDashboard = lazy(() => import("./pages/TechnicianDashboard"));
+const CommercialDashboard = lazy(() => import("./pages/CommercialDashboard"));
+const AgencyDirectorDashboard = lazy(() => import("./pages/AgencyDirectorDashboard"));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+      <p className="text-muted-foreground">Loading...</p>
+    </div>
+  </div>
+);
 
 const queryClient = new QueryClient();
 
@@ -43,7 +56,9 @@ const App = () => (
               path="/superadmin"
               element={
                 <ProtectedRoute allowedRoles={['superadmin']}>
-                  <SuperAdminDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <SuperAdminDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -51,7 +66,9 @@ const App = () => (
               path="/tenant"
               element={
                 <ProtectedRoute allowedRoles={['tenant']}>
-                  <TenantDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <TenantDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -59,7 +76,9 @@ const App = () => (
               path="/landlord"
               element={
                 <ProtectedRoute allowedRoles={['landlord']}>
-                  <LandlordDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <LandlordDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -67,7 +86,9 @@ const App = () => (
               path="/salesmanager"
               element={
                 <ProtectedRoute allowedRoles={['salesmanager']}>
-                  <SalesManagerDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <SalesManagerDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -75,7 +96,9 @@ const App = () => (
               path="/admin"
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <AdminDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -83,7 +106,9 @@ const App = () => (
               path="/accounting"
               element={
                 <ProtectedRoute allowedRoles={['accounting']}>
-                  <AccountingDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <AccountingDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -91,7 +116,9 @@ const App = () => (
               path="/technician"
               element={
                 <ProtectedRoute allowedRoles={['technician']}>
-                  <TechnicianDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <TechnicianDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -99,7 +126,9 @@ const App = () => (
               path="/commercial"
               element={
                 <ProtectedRoute allowedRoles={['commercial']}>
-                  <CommercialDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <CommercialDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -107,7 +136,9 @@ const App = () => (
               path="/agencydirector"
               element={
                 <ProtectedRoute allowedRoles={['agencydirector']}>
-                  <AgencyDirectorDashboard />
+                  <Suspense fallback={<LoadingFallback />}>
+                    <AgencyDirectorDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
