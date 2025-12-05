@@ -9,7 +9,25 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
 
+  // Check localStorage as fallback while loading
+  const storedUserStr = localStorage.getItem('user');
+  const storedUser = storedUserStr ? (() => {
+    try {
+      return JSON.parse(storedUserStr);
+    } catch {
+      return null;
+    }
+  })() : null;
+
   if (loading) {
+    // If we have a stored user but context is still loading, wait a bit
+    if (storedUser) {
+      return (
+        <div className="flex items-center justify-center min-h-screen">
+          <div>Loading...</div>
+        </div>
+      );
+    }
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div>Loading...</div>
@@ -17,25 +35,16 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
     );
   }
 
-  if (!user) {
-    // Check localStorage as fallback
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        if (parsedUser && parsedUser.role) {
-          // User exists in localStorage but not in context - this shouldn't happen
-          // but let's handle it gracefully by redirecting to login to refresh state
-          return <Navigate to="/login" replace />;
-        }
-      } catch (e) {
-        // Invalid user data
-      }
-    }
+  // Use stored user as fallback if context user is not available yet
+  const currentUser = user || storedUser;
+
+  if (!currentUser) {
+    console.log('ProtectedRoute: No user found, redirecting to login');
     return <Navigate to="/login" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role.toLowerCase())) {
+  if (allowedRoles && !allowedRoles.includes(currentUser.role?.toLowerCase())) {
+    console.log('ProtectedRoute: User role not allowed, redirecting');
     // Redirect to user's default dashboard instead of "/"
     const roleRoutes: Record<string, string> = {
       superadmin: '/superadmin',
@@ -48,7 +57,7 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
       commercial: '/commercial',
       agencydirector: '/agencydirector',
     };
-    const defaultRoute = roleRoutes[user.role.toLowerCase()] || '/superadmin';
+    const defaultRoute = roleRoutes[currentUser.role?.toLowerCase()] || '/superadmin';
     return <Navigate to={defaultRoute} replace />;
   }
 

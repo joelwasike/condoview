@@ -53,27 +53,52 @@ const Login = () => {
     setError('');
 
     try {
+      console.log('Attempting login...');
       await login(formData.email, formData.password);
-      // Small delay to ensure state is updated before navigation
-      setTimeout(() => {
-        const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-        if (currentUser?.role) {
-          const role = currentUser.role.toLowerCase();
-          const roleRoutes: Record<string, string> = {
-            superadmin: '/superadmin',
-            tenant: '/tenant',
-            landlord: '/landlord',
-            salesmanager: '/salesmanager',
-            admin: '/admin',
-            accounting: '/accounting',
-            technician: '/technician',
-            commercial: '/commercial',
-            agencydirector: '/agencydirector',
-          };
-          const targetRoute = roleRoutes[role] || '/superadmin';
-          navigate(targetRoute, { replace: true });
+      console.log('Login successful, checking user state...');
+      
+      // Wait a bit for state to update, then check localStorage directly
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      const currentUserStr = localStorage.getItem('user');
+      console.log('User from localStorage:', currentUserStr);
+      
+      if (currentUserStr) {
+        try {
+          const currentUser = JSON.parse(currentUserStr);
+          console.log('Parsed user:', currentUser);
+          
+          if (currentUser?.role) {
+            const role = currentUser.role.toLowerCase();
+            const roleRoutes: Record<string, string> = {
+              superadmin: '/superadmin',
+              tenant: '/tenant',
+              landlord: '/landlord',
+              salesmanager: '/salesmanager',
+              admin: '/admin',
+              accounting: '/accounting',
+              technician: '/technician',
+              commercial: '/commercial',
+              agencydirector: '/agencydirector',
+            };
+            const targetRoute = roleRoutes[role] || '/superadmin';
+            console.log('Navigating to:', targetRoute);
+            navigate(targetRoute, { replace: true });
+          } else {
+            console.error('User role not found:', currentUser);
+            setError('Invalid user data received');
+            setLoading(false);
+          }
+        } catch (parseErr) {
+          console.error('Failed to parse user data:', parseErr);
+          setError('Failed to parse user data');
+          setLoading(false);
         }
-      }, 100);
+      } else {
+        console.error('No user found in localStorage after login');
+        setError('Login failed: No user data received');
+        setLoading(false);
+      }
     } catch (err: any) {
       console.error('Login error:', err);
       setError(err.message || 'Network error. Please try again.');
