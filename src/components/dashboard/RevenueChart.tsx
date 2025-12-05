@@ -43,46 +43,47 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const RevenueChart = () => {
   return (
-    <div className="bg-card rounded-xl p-6 shadow-card animate-fade-in" style={{ animationDelay: "0.2s" }}>
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-card rounded-2xl p-8 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.2s" }}>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
         <div>
-          <h3 className="text-lg font-semibold text-card-foreground">Total Revenue</h3>
-          <p className="text-2xl font-bold text-card-foreground">$678,345</p>
+          <h3 className="text-xl font-bold text-card-foreground mb-2">Total Revenue</h3>
+          <p className="text-3xl font-bold text-card-foreground">$678,345</p>
         </div>
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-chart-blue" />
-            <span className="text-sm text-muted-foreground">Online Sales</span>
+          <div className="flex items-center gap-2.5">
+            <span className="w-3.5 h-3.5 rounded-full bg-chart-blue shadow-sm" />
+            <span className="text-sm font-medium text-muted-foreground">Online Sales</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-chart-green" />
-            <span className="text-sm text-muted-foreground">Offline Sales</span>
+          <div className="flex items-center gap-2.5">
+            <span className="w-3.5 h-3.5 rounded-full bg-chart-green shadow-sm" />
+            <span className="text-sm font-medium text-muted-foreground">Offline Sales</span>
           </div>
         </div>
       </div>
 
-      <div className="h-48">
+      <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} barGap={2}>
+          <BarChart data={data} barGap={4}>
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 12 }}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
+              tickMargin={12}
             />
             <YAxis hide />
             <Tooltip content={<CustomTooltip />} cursor={false} />
             <Bar
               dataKey="online"
               fill="hsl(217, 91%, 60%)"
-              radius={[4, 4, 0, 0]}
-              maxBarSize={12}
+              radius={[6, 6, 0, 0]}
+              maxBarSize={16}
             />
             <Bar
               dataKey="offline"
               fill="hsl(160, 84%, 39%)"
-              radius={[4, 4, 0, 0]}
-              maxBarSize={12}
+              radius={[6, 6, 0, 0]}
+              maxBarSize={16}
             />
           </BarChart>
         </ResponsiveContainer>

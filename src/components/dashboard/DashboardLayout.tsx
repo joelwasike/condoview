@@ -10,9 +10,11 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   return (
     <div className="min-h-screen bg-background">
       <Sidebar />
-      <main className="ml-20 p-8">
-        <Header title={title} />
-        {children}
+      <main className="ml-20 px-8 py-10">
+        <div className="max-w-[1600px] mx-auto">
+          <Header title={title} />
+          {children}
+        </div>
       </main>
     </div>
   );

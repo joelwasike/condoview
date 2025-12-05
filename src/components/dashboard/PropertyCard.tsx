@@ -21,41 +21,45 @@ const PropertyCard = ({
   auctionDate = "Auction 1:00pm Saturday 15 April",
 }: Partial<PropertyCardProps>) => {
   return (
-    <div className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-200 animate-fade-in" style={{ animationDelay: "0.25s" }}>
-      <div className="flex items-center justify-between px-6 pt-6 pb-3">
-        <h3 className="text-lg font-semibold text-card-foreground">New List</h3>
-        <button className="text-sm text-primary hover:underline">View All &gt;</button>
+    <div className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-md transition-all duration-300 animate-fade-in" style={{ animationDelay: "0.25s" }}>
+      <div className="flex items-center justify-between px-7 pt-7 pb-4">
+        <h3 className="text-lg font-bold text-card-foreground">New Listing</h3>
+        <button className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+          View All →
+        </button>
       </div>
-      
-      <div className="px-6 pb-6">
-        <div className="rounded-lg overflow-hidden mb-4">
+
+      <div className="px-7 pb-7">
+        <div className="rounded-xl overflow-hidden mb-5 shadow-sm">
           <img
             src={propertyImage}
             alt={address}
-            className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
+            className="w-full h-44 object-cover hover:scale-110 transition-transform duration-500"
           />
         </div>
 
-        <h4 className="font-semibold text-card-foreground mb-3">{address}</h4>
+        <h4 className="font-bold text-card-foreground mb-4 text-base leading-snug">{address}</h4>
 
-        <div className="flex items-center gap-4 text-muted-foreground text-sm mb-4">
-          <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-5 text-muted-foreground text-sm mb-5 pb-5 border-b border-border">
+          <div className="flex items-center gap-2">
             <Bed className="w-4 h-4" />
-            <span>{beds}</span>
+            <span className="font-medium">{beds}</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <Bath className="w-4 h-4" />
-            <span>{baths}</span>
+            <span className="font-medium">{baths}</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <Maximize className="w-4 h-4" />
-            <span>{size}</span>
+            <span className="font-medium">{size}</span>
           </div>
-          <span className="text-muted-foreground">{type}</span>
+          <span className="text-xs px-2.5 py-1 bg-secondary rounded-full font-medium">{type}</span>
         </div>
 
-        <p className="text-xl font-bold text-card-foreground mb-1">{price}</p>
-        <p className="text-sm text-muted-foreground">{auctionDate}</p>
+        <div className="space-y-2">
+          <p className="text-2xl font-bold text-card-foreground">{price}</p>
+          <p className="text-sm text-muted-foreground font-medium">{auctionDate}</p>
+        </div>
       </div>
     </div>
   );

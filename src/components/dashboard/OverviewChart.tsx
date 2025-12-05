@@ -38,13 +38,16 @@ const OverviewChart = () => {
   const [period, setPeriod] = useState("Month");
 
   return (
-    <div className="bg-card rounded-xl p-6 shadow-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-card-foreground">Total Overview</h3>
+    <div className="bg-card rounded-2xl p-8 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.1s" }}>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h3 className="text-xl font-bold text-card-foreground mb-1">Total Overview</h3>
+          <p className="text-sm text-muted-foreground">Property value trends over time</p>
+        </div>
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
-          className="text-sm text-muted-foreground bg-transparent border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-ring"
+          className="text-sm font-medium text-card-foreground bg-secondary border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all cursor-pointer"
         >
           <option value="Week">Week</option>
           <option value="Month">Month</option>
@@ -52,12 +55,12 @@ const OverviewChart = () => {
         </select>
       </div>
 
-      <div className="h-64">
+      <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.2} />
+                <stop offset="5%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.3} />
                 <stop offset="95%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
               </linearGradient>
             </defs>
@@ -65,23 +68,25 @@ const OverviewChart = () => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 12 }}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
+              tickMargin={12}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 12 }}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
               tickFormatter={(value) => `$${value}`}
+              tickMargin={8}
             />
             <Tooltip content={<CustomTooltip />} />
             <Area
               type="monotone"
               dataKey="value"
               stroke="hsl(217, 91%, 60%)"
-              strokeWidth={2}
+              strokeWidth={3}
               fill="url(#colorValue)"
               dot={false}
-              activeDot={{ r: 6, fill: "hsl(217, 91%, 60%)", stroke: "#fff", strokeWidth: 2 }}
+              activeDot={{ r: 7, fill: "hsl(217, 91%, 60%)", stroke: "#fff", strokeWidth: 3 }}
             />
           </AreaChart>
         </ResponsiveContainer>
