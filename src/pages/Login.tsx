@@ -54,7 +54,26 @@ const Login = () => {
 
     try {
       await login(formData.email, formData.password);
-      // Navigation will happen via useEffect when user state updates
+      // Small delay to ensure state is updated before navigation
+      setTimeout(() => {
+        const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+        if (currentUser?.role) {
+          const role = currentUser.role.toLowerCase();
+          const roleRoutes: Record<string, string> = {
+            superadmin: '/superadmin',
+            tenant: '/tenant',
+            landlord: '/landlord',
+            salesmanager: '/salesmanager',
+            admin: '/admin',
+            accounting: '/accounting',
+            technician: '/technician',
+            commercial: '/commercial',
+            agencydirector: '/agencydirector',
+          };
+          const targetRoute = roleRoutes[role] || '/superadmin';
+          navigate(targetRoute, { replace: true });
+        }
+      }, 100);
     } catch (err: any) {
       console.error('Login error:', err);
       setError(err.message || 'Network error. Please try again.');

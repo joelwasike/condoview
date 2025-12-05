@@ -30,7 +30,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     const data = await authService.login(email, password);
+    // User and token are already saved to localStorage in authService.login
     setUser(data.user);
+    // Force a small delay to ensure state is updated
+    await new Promise(resolve => setTimeout(resolve, 100));
   };
 
   const logout = () => {

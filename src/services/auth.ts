@@ -32,6 +32,10 @@ export const authService = {
       throw new Error(message);
     }
 
+    // Save to localStorage
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
     return data;
   },
 
