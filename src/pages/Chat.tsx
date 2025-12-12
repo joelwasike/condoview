@@ -118,7 +118,7 @@ const Chat = () => {
                 }`}
               >
                 <div className="relative">
-                  <Avatar className="w-12 h-12">
+                  <Avatar className="w-10 h-10">
                     <AvatarImage src={contact.avatar} />
                     <AvatarFallback>{contact.name[0]}</AvatarFallback>
                   </Avatar>
@@ -134,7 +134,7 @@ const Chat = () => {
                   <p className="text-sm text-muted-foreground truncate">{contact.lastMessage}</p>
                 </div>
                 {contact.unread > 0 && (
-                  <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">
+                  <span className="w-4 h-4 bg-primary text-primary-foreground rounded-full text-xs flex items-center justify-center">
                     {contact.unread}
                   </span>
                 )}
@@ -204,7 +204,7 @@ const Chat = () => {
           <div className="p-4 border-t border-border">
             <div className="flex items-center gap-3">
               <button className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-                <Paperclip className="w-5 h-5" />
+                <Paperclip className="w-4 h-4" />
               </button>
               <Input
                 value={newMessage}
@@ -213,7 +213,7 @@ const Chat = () => {
                 className="flex-1 bg-secondary border-0"
               />
               <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors">
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
               </button>
             </div>
           </div>

@@ -25,14 +25,14 @@ const data = [
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
-        <p className="text-sm font-medium text-card-foreground mb-2">{label}</p>
-        <p className="text-xs text-chart-blue flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-chart-blue" />
+      <div className="bg-card border border-border rounded-lg p-2 shadow-lg">
+        <p className="text-xs font-medium text-card-foreground mb-1.5">{label}</p>
+        <p className="text-[10px] text-chart-blue flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-chart-blue" />
           Online: ${payload[0].value}k
         </p>
-        <p className="text-xs text-chart-green flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-chart-green" />
+        <p className="text-[10px] text-chart-green flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-chart-green" />
           Offline: ${payload[1].value}k
         </p>
       </div>
@@ -43,33 +43,33 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const RevenueChart = () => {
   return (
-    <div className="bg-card rounded-2xl p-8 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.2s" }}>
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
+    <div className="bg-card rounded-xl p-6 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.2s" }}>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
         <div>
-          <h3 className="text-xl font-bold text-card-foreground mb-2">Total Revenue</h3>
-          <p className="text-3xl font-bold text-card-foreground">$678,345</p>
+          <h3 className="text-lg font-semibold text-card-foreground mb-1.5">Total Revenue</h3>
+          <p className="text-2xl font-semibold text-card-foreground">$678,345</p>
         </div>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2.5">
-            <span className="w-3.5 h-3.5 rounded-full bg-chart-blue shadow-sm" />
-            <span className="text-sm font-medium text-muted-foreground">Online Sales</span>
+        <div className="flex items-center gap-5">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-chart-blue shadow-sm" />
+            <span className="text-xs font-medium text-muted-foreground">Online Sales</span>
           </div>
-          <div className="flex items-center gap-2.5">
-            <span className="w-3.5 h-3.5 rounded-full bg-chart-green shadow-sm" />
-            <span className="text-sm font-medium text-muted-foreground">Offline Sales</span>
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-chart-green shadow-sm" />
+            <span className="text-xs font-medium text-muted-foreground">Offline Sales</span>
           </div>
         </div>
       </div>
 
-      <div className="h-64">
+      <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} barGap={4}>
             <XAxis
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
-              tickMargin={12}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 11 }}
+              tickMargin={10}
             />
             <YAxis hide />
             <Tooltip content={<CustomTooltip />} cursor={false} />

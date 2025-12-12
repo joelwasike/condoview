@@ -98,7 +98,7 @@ const PropertyCard = ({ property }: { property: typeof properties[0] }) => (
         <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
         <h3 className="font-semibold text-card-foreground line-clamp-1">{property.address}</h3>
       </div>
-      <div className="flex items-center gap-4 text-muted-foreground text-sm mb-4">
+      <div className="flex items-center gap-4 text-muted-foreground text-sm mb-3">
         <div className="flex items-center gap-1.5">
           <Bed className="w-4 h-4" />
           <span>{property.beds}</span>

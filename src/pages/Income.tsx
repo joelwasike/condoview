@@ -58,9 +58,9 @@ const Income = () => {
             className="bg-card rounded-xl p-6 shadow-card animate-fade-in"
             style={{ animationDelay: `${index * 0.05}s` }}
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                <stat.icon className="w-5 h-5 text-primary" />
+                <stat.icon className="w-4 h-4 text-primary" />
               </div>
               <span
                 className={`flex items-center gap-1 text-sm font-medium ${
@@ -123,7 +123,7 @@ const Income = () => {
         {/* Expenses Chart */}
         <div className="col-span-12 lg:col-span-4 bg-card rounded-xl p-6 shadow-card animate-fade-in" style={{ animationDelay: "0.25s" }}>
           <h3 className="text-lg font-semibold text-card-foreground mb-2">Expenses</h3>
-          <p className="text-2xl font-bold text-card-foreground mb-4">$115,100</p>
+          <p className="text-2xl font-bold text-card-foreground mb-3">$115,100</p>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={expenses}>

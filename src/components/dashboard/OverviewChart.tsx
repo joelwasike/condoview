@@ -38,16 +38,16 @@ const OverviewChart = () => {
   const [period, setPeriod] = useState("Month");
 
   return (
-    <div className="bg-card rounded-2xl p-8 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.1s" }}>
-      <div className="flex items-center justify-between mb-8">
+    <div className="bg-card rounded-xl p-6 shadow-sm border border-border animate-fade-in" style={{ animationDelay: "0.1s" }}>
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-card-foreground mb-1">Total Overview</h3>
-          <p className="text-sm text-muted-foreground">Property value trends over time</p>
+          <h3 className="text-lg font-semibold text-card-foreground mb-0.5">Total Overview</h3>
+          <p className="text-xs text-muted-foreground">Property value trends over time</p>
         </div>
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
-          className="text-sm font-medium text-card-foreground bg-secondary border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all cursor-pointer"
+          className="text-xs font-medium text-card-foreground bg-secondary border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all cursor-pointer"
         >
           <option value="Week">Week</option>
           <option value="Month">Month</option>
@@ -55,7 +55,7 @@ const OverviewChart = () => {
         </select>
       </div>
 
-      <div className="h-80">
+      <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
@@ -68,15 +68,15 @@ const OverviewChart = () => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
-              tickMargin={12}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 11 }}
+              tickMargin={10}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 13 }}
+              tick={{ fill: "hsl(215, 16%, 47%)", fontSize: 11 }}
               tickFormatter={(value) => `$${value}`}
-              tickMargin={8}
+              tickMargin={6}
             />
             <Tooltip content={<CustomTooltip />} />
             <Area
